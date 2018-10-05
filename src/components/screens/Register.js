@@ -9,7 +9,8 @@ const Register = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
     try{
-      await firebase.auth().createUserWithEmailAndPassword(email, password);
+      const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+      userCredential.user.sendEmailVerification();
     } catch(e) {
       switch(e.code) {
         case 'auth/email-already-in-use':
